@@ -13,6 +13,8 @@ Strategy Pattern implementation pracitce this example isn't perfect by no means 
 
 
 ### The interface that defines the contract:
+We are using a generic implementation of the Interface with will support two types `T` is for the target type and `C` is for the Customer in this scenario. 
+
 ```CSharp
 
 public interface ICustomerAccountCreationStrategy<T, C>
@@ -24,6 +26,9 @@ public interface ICustomerAccountCreationStrategy<T, C>
 ```
 
 ### Example code for Regualar Account Creationn:
+
+Here is where we implement the interface for a concrete type of RegularCustomerAccountCreationStrategy which implements the contracts `CreateCustomerAccount` Method.
+
 
 ```CSharp
 
