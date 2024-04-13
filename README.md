@@ -3,6 +3,10 @@
 Strategy Pattern implementation pracitce this example isn't perfect by no means but an example of way to use a strategy.  I welcome your feedback
 
 ## Two Strategies in the example:
+- Regular Customer Account Creation
+- Premium Customer Account Creation
+
+Let's take a look at these two strategies we wil start out with the Regular account type.
 
 ### Regular Customer Account Creation Strategy:
 - The `RegularCustomerAccountCreationStrategy` class is a concrete strategy in the Strategy Pattern. It implements the `ICustomerAccountCreationStrategy<RegularCustomerAccount, Customer>` interface, which defines a common method for creating a customer account.
@@ -55,7 +59,7 @@ public class RegularCustomerAccountCreationStrategy : ICustomerAccountCreationSt
 ```
 
 
-### Premium Customer Account Creation
+### Premium Customer Account Creation Strategy
 
 - The `PremiumCustomerAccountCreationStrategy`, implements the same `ICustomerAccountCreationStrategy<PremiomCustomerAccount, Customer>` interface but provide different implementations of the `CreateCustomerAccount` method.
 - These classes would encapsulate the behaviors for creating a premium customer accounts.
