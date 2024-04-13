@@ -12,8 +12,8 @@ Strategy Pattern implementation pracitce ths not perfect by no means but an exam
 ### Premium Customer Account Creation
 
 - The `PremiumCustomerAccountCreationStrategy`, implements the same `ICustomerAccountCreationStrategy<PremiomCustomerAccount, Customer>` interface but provide different implementations of the `CreateCustomerAccount` method.
-- These classes would encapsulate the behavior for creating other types of customer accounts.
-- - The `CreateCustomerAccount` method takes a `Customer` object and a `CustomerType` enum as parameters. It checks if the `CustomerType` is `Regular`, and if so, it creates a `PremiumCustomerAccount`.
+- These classes would encapsulate the behaviors for creating a premium customer accounts.
+- The `CreateCustomerAccount` method takes a `Customer` object and a `CustomerType` enum as parameters. It checks if the `CustomerType` is `Premium`, and if so, it creates a `PremiumCustomerAccount`.
 - The `PremiumCustomerAccountCreationStrategy` is created with the `Customer` object passed in, `IsActive` set to `true`, `CreatedDate` set to the current date and time, and `DiscountType` set to `Percentage`.
 - 
 
