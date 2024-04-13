@@ -1,5 +1,16 @@
 # Strategy Pattern 
 
+- The Strategy Pattern is a behavioral design pattern that enables selecting an algorithm at runtime. Instead of implementing a single algorithm directly, code receives run-time instructions as to which in a family of algorithms to use.
+- In this project, the Strategy Pattern is used to create different types of customer accounts. The `ICustomerAccountCreationStrategy<RegularCustomerAccount, Customer>` interface defines a common method for creating a customer account.
+- The `RegularCustomerAccountCreationStrategy` class is a concrete strategy that implements this interface. It encapsulates the algorithm for creating a regular customer account.
+- The `CreateCustomerAccount` method in this class takes a `Customer` object and a `CustomerType` enum as parameters. It checks if the `CustomerType` is `Regular`, and if so, it creates a `RegularCustomerAccount`.
+- Other classes, such as `PremiumCustomerAccountCreationStrategy` or `NewCustomerAccountCreationStrategy`, would implement the same interface but provide different implementations of the `CreateCustomerAccount` method. These classes would encapsulate the behavior for creating other types of customer accounts.
+- A context class (possibly `Customer` or another class) would use an instance of the `ICustomerAccountCreationStrategy` interface to create a customer account. The specific type of strategy used would be determined at runtime based on the customer type or other factors.
+- This setup allows the behavior of the context class to change at runtime based on the strategy used, and it makes it easy to add new types of customers in the future without modifying the context class.
+- The Strategy Pattern promotes open/closed principle, making the code more flexible and easier to extend, maintain, and test.
+
+
+
 Strategy Pattern implementation pracitce this example isn't perfect by no means but an example of way to use a strategy.  I welcome your feedback
 
 ## Two Strategies in the example:
