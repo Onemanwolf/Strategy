@@ -45,10 +45,15 @@ public class CustomerAccountService
     //Then it should return true
     public bool CreateCustomerAccount(Customer customer)
     {
+
+        // here we are checking if the customer is valid or not
         if (!IsCustomerValid(customer))
         {
             throw new InvalidOperationException("Invalid customer details");
         }
+
+        // here we are implementing the strategy pattern to create customer account
+        // based on the customer type
 
         if (customer.CustomerType == CustomerType.Regular)
         {
@@ -126,6 +131,7 @@ public class PremiumCustomerCreationStrategy : ICustomerCreationStrategy<Premium
         if(customerType == CustomerType.Premium)
         {
         // Premium customer creation logic
+        //Focus Unit Testing here
         var customerAccount = new PremiumCustomerAccount
         {
             Customer = customer,
