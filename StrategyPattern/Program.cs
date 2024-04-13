@@ -7,7 +7,7 @@ class Program
     static void Main(string[] args)
     {
         Console.WriteLine("Hello, Strategy Pattern!");
-        var CustomerAccountService = new CustomerAccountService(new RegularCustomerCreationStrategy(), new PremiumCustomerCreationStrategy());
+        var CustomerAccountService = new CustomerAccountService(new RegularCustomerAccountCreationStrategy(), new PremiumCustomerAccountCreationStrategy());
 
         var customer = new Customer
         {
@@ -26,10 +26,10 @@ class Program
 // CustomerAccountService class is responsible for creating customer account based on the customer type
 public class CustomerAccountService
 {
-    private readonly ICustomerCreationStrategy<RegularCustomerAccount, Customer> _regularCustomerCreationStrategy;
-    private readonly ICustomerCreationStrategy<PremiumCustomerAccount, Customer> _premiumCustomerCreationStrategy;
+    private readonly ICustomerAccountCreationStrategy<RegularCustomerAccount, Customer> _regularCustomerCreationStrategy;
+    private readonly ICustomerAccountCreationStrategy<PremiumCustomerAccount, Customer> _premiumCustomerCreationStrategy;
 
-    public CustomerAccountService(ICustomerCreationStrategy<RegularCustomerAccount, Customer> regularCustomerCreationStrategy, ICustomerCreationStrategy<PremiumCustomerAccount, Customer> premiumCustomerCreationStrategy)
+    public CustomerAccountService(ICustomerAccountCreationStrategy<RegularCustomerAccount, Customer> regularCustomerCreationStrategy, ICustomerAccountCreationStrategy<PremiumCustomerAccount, Customer> premiumCustomerCreationStrategy)
     {
         _regularCustomerCreationStrategy = regularCustomerCreationStrategy;
         _premiumCustomerCreationStrategy = premiumCustomerCreationStrategy;
@@ -88,13 +88,13 @@ public class CustomerAccountService
 
 //TODO: Move to separate interface file
 
-public interface ICustomerCreationStrategy<T,C>
+public interface ICustomerAccountCreationStrategy<T,C>
 {
     T CreateCustomerAccount(C customer, CustomerType customerType);
 }
 
 //TODO: Move to separate class and implement the logic for regular customer creation
-public class RegularCustomerCreationStrategy : ICustomerCreationStrategy<RegularCustomerAccount, Customer>
+public class RegularCustomerAccountCreationStrategy : ICustomerAccountCreationStrategy<RegularCustomerAccount, Customer>
 {
     public RegularCustomerAccount CreateCustomerAccount(Customer customer, CustomerType customerType)
     {
@@ -123,25 +123,19 @@ public class RegularCustomerCreationStrategy : ICustomerCreationStrategy<Regular
 }
 //TODO: Move to separate class and implement the logic for premium customer creation
 
-public class PremiumCustomerCreationStrategy : ICustomerCreationStrategy<PremiumCustomerAccount, Customer>
+public class PremiumCustomerAccountCreationStrategy : ICustomerAccountCreationStrategy<PremiumCustomerAccount, Customer>
 {
     public PremiumCustomerAccount CreateCustomerAccount(Customer customer, CustomerType customerType)
     {
 
         if(customerType == CustomerType.Premium)
         {
-        // Premium customer creation logic
-        //Focus Unit Testing here
-        var customerAccount = new PremiumCustomerAccount
-        {
-            Customer = customer,
-            IsActive = true,
-            CreatedDate = DateTime.Now,
-            DiscountType = DiscountType.Percentage,
-            Rewards = new Rewards()
-        };
+            // Premium customer creation logic
+            //Focus Unit Testing here
+            var customerAccount = new PremiumCustomerAccount();
+            customerAccount = customerAccount.PremiumCustomerAccountFactory(customer);
 
-             return customerAccount;
+            return customerAccount;
         }else
         {
             throw new InvalidOperationException("Invalid customer type");
@@ -183,12 +177,70 @@ public class PremiumCustomerAccount
 
     public Rewards? Rewards { get; set; }
 
+    public PremiumCustomerAccount PremiumCustomerAccountFactory(Customer customer)
+    {
+
+
+        if(!IsCustomerValid(customer))
+        {
+            throw new InvalidOperationException("Invalid customer details");
+        }
+        // TODO: Implement the logic for creating premium customer account
+        //       like does customer already exist, is customer valid, etc.
+        var rewards = new Rewards{
+            Points = 0,
+            Description = "Premium Customer Rewards",
+            ExpiryDate = DateTime.Now.AddYears(1),
+            IsActive = true
+        };
+
+        return new PremiumCustomerAccount{
+
+            Customer = customer,
+            IsActive = true,
+            CreatedDate = DateTime.Now,
+            DiscountType = DiscountType.Percentage,
+            Rewards = rewards
+
+        };
+    }
+
+    public bool IsCustomerValid(Customer customer)
+    {
+        return !string.IsNullOrEmpty(customer.FirstName) && !string.IsNullOrEmpty(customer.LastName) && !string.IsNullOrEmpty(customer.Email) && !string.IsNullOrEmpty(customer.Phone);
+    }
+
 }
 
 //TODO: Move to separate class and implement the logic
 
 public class Rewards
 {
+    public int Points { get; set; }
+    public string? Description { get; set; }
+    public DateTime? ExpiryDate { get; set; }
+    public bool IsActive { get; set; }
+    public bool IsExpired { get; set; }
+    public bool IsRedeemed { get; set; }
+    public bool IsCancelled { get; set; }
+    public bool IsSuspended { get; set; }
+    public bool IsDeleted { get; set; }
+    public bool IsUpdated { get; set; }
+    public bool IsCreated { get; set; }
+    public bool IsSaved { get; set; }
+    public bool IsLoaded { get; set; }
+    public bool IsUnloaded { get; set; }
+    public bool IsDisposed { get; set; }
+    public bool IsInitialized { get; set; }
+    public bool IsFinalized { get; set; }
+    public bool IsStarted { get; set; }
+    public bool IsStopped { get; set; }
+    public bool IsPaused { get; set; }
+    public bool IsResumed { get; set; }
+    public bool IsCompleted { get; set; }
+    public bool IsFailed { get; set; }
+    public bool IsSucceeded { get; set; }
+
 }
 //TODO: Move to separate enum file
 public enum CustomerType

@@ -12,3 +12,4 @@ c:\Users\timot\source\repos\Strategy\StrategyPattern\obj\Debug\net8.0\refint\Str
 c:\Users\timot\source\repos\Strategy\StrategyPattern\obj\Debug\net8.0\StrategyPattern.pdb
 c:\Users\timot\source\repos\Strategy\StrategyPattern\obj\Debug\net8.0\StrategyPattern.genruntimeconfig.cache
 c:\Users\timot\source\repos\Strategy\StrategyPattern\obj\Debug\net8.0\ref\StrategyPattern.dll
+c:\Users\timot\source\repos\Strategy\StrategyPattern\obj\Debug\net8.0\StrategyPattern.sourcelink.json
