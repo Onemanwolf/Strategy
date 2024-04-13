@@ -8,12 +8,85 @@ Strategy Pattern implementation pracitce this example isn't perfect by no means 
 - The `RegularCustomerAccountCreationStrategy` class is a concrete strategy in the Strategy Pattern. It implements the `ICustomerAccountCreationStrategy<RegularCustomerAccount, Customer>` interface, which defines a common method for creating a customer account.
 - The `CreateCustomerAccount` method takes a `Customer` object and a `CustomerType` enum as parameters. It checks if the `CustomerType` is `Regular`, and if so, it creates a `RegularCustomerAccount`.
 - The `RegularCustomerAccount` is created with the `Customer` object passed in, `IsActive` set to `true`, `CreatedDate` set to the current date and time, and `DiscountType` set to `None`.
--
+
+## Example Code:
+
+
+### The interface that defines the contract:
+```CSharp
+
+public interface ICustomerAccountCreationStrategy<T, C>
+{
+    T CreateCustomerAccount(C customer, CustomerType customerType);
+}
+
+
+```
+
+### Example code for Regualar Account Creationn:
+
+```CSharp
+
+
+//implement the logic for regular customer creation
+public class RegularCustomerAccountCreationStrategy : ICustomerAccountCreationStrategy<RegularCustomerAccount, Customer>
+{
+    public RegularCustomerAccount CreateCustomerAccount(Customer customer, CustomerType customerType)
+    {
+
+        if (customerType == CustomerType.Regular)
+        {
+
+            // Regular customer creation logic
+            var customerAccount = new RegularCustomerAccount();
+            customerAccount = customerAccount.RegularCustomerAccountFactory(customer);
+            return customerAccount;
+        }
+        else
+        {
+            throw new InvalidOperationException("Invalid customer type");
+
+        }
+    }
+}
+
+```
+
+
 ### Premium Customer Account Creation
 
 - The `PremiumCustomerAccountCreationStrategy`, implements the same `ICustomerAccountCreationStrategy<PremiomCustomerAccount, Customer>` interface but provide different implementations of the `CreateCustomerAccount` method.
 - These classes would encapsulate the behaviors for creating a premium customer accounts.
 - The `CreateCustomerAccount` method takes a `Customer` object and a `CustomerType` enum as parameters. It checks if the `CustomerType` is `Premium`, and if so, it creates a `PremiumCustomerAccount`.
 - The `PremiumCustomerAccountCreationStrategy` is created with the `Customer` object passed in, `IsActive` set to `true`, `CreatedDate` set to the current date and time, and `DiscountType` set to `Percentage`.
-- 
+
+### Example Code for Premium Account Creation Strategy:
+```Csharp
+
+//implement the logic for premium customer creation
+public class PremiumCustomerAccountCreationStrategy : ICustomerAccountCreationStrategy<PremiumCustomerAccount, Customer>
+{
+    public PremiumCustomerAccount CreateCustomerAccount(Customer customer, CustomerType customerType)
+    {
+
+        if (customerType == CustomerType.Premium)
+        {
+            // Premium customer creation logic
+            //Focus Unit Testing here
+            var customerAccount = new PremiumCustomerAccount();
+            customerAccount = customerAccount.PremiumCustomerAccountFactory(customer);
+
+            return customerAccount;
+        }
+        else
+        {
+            throw new InvalidOperationException("Invalid customer type");
+        }
+
+    }
+}
+
+
+
+```
 
