@@ -1,6 +1,6 @@
 # Strategy Pattern 
 
-Strategy Pattern implementation pracitce ths not perfect by no means but an example of way to use a strategy I welcome your feedback
+Strategy Pattern implementation pracitce this example isn't perfect by no means but an example of way to use a strategy.  I welcome your feedback
 
 ## Two Strategies in the example:
 
