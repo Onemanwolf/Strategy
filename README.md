@@ -11,7 +11,11 @@ Strategy Pattern implementation pracitce this example isn't perfect by no means 
 
 ## Two Strategies in the example:
 - Regular Customer Account Creation
+    - Implements the business rules and invariants for Regular account creation 
 - Premium Customer Account Creation
+    -  Implements the business rules and invariants for Regular account creation.
+    -  This customer account type is more complex and has more business rules to enforce.
+    -  Has a Reward class that has all the business rules for rewards.
 
 Let's take a look at these two strategies we wil start out with the Regular account type.
 
