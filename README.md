@@ -9,7 +9,7 @@ The Strategy Pattern is a behavioral design pattern that enables selecting an al
 
 Strategy Pattern implementation pracitce this example isn't perfect by no means but an example of way to use a strategy.  I welcome your feedback
 
-## Two Strategies in the example:
+## Two Strategies in this example:
 - Regular Customer Account Creation
     - Implements the business rules and invariants for Regular account creation 
 - Premium Customer Account Creation
