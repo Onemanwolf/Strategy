@@ -9,9 +9,6 @@ Strategy Pattern implementation pracitce this example isn't perfect by no means 
 - The `CreateCustomerAccount` method takes a `Customer` object and a `CustomerType` enum as parameters. It checks if the `CustomerType` is `Regular`, and if so, it creates a `RegularCustomerAccount`.
 - The `RegularCustomerAccount` is created with the `Customer` object passed in, `IsActive` set to `true`, `CreatedDate` set to the current date and time, and `DiscountType` set to `None`.
 
-## Strategy Code Examples:
-
-
 ### The interface that defines the contract:
 We are using a generic implementation of the Interface with will support two types `T` is for the target type and `C` is for the Customer in this scenario. 
 
