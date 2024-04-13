@@ -25,7 +25,7 @@ public interface ICustomerAccountCreationStrategy<T, C>
 
 ```
 
-### Example code for Regualar Account Creationn Strategy:
+### Example code for Regualar Account Creation Strategy:
 
 Here is where we implement the interface for a concrete type of RegularCustomerAccountCreationStrategy which implements the contracts `CreateCustomerAccount` Method.
 
