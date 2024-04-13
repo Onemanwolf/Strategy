@@ -8,15 +8,25 @@ class Program
     {
         Console.WriteLine("Hello, Strategy Pattern!");
         var CustomerAccountService = new CustomerAccountService(new RegularCustomerAccountCreationStrategy(), new PremiumCustomerAccountCreationStrategy());
-
-        var customer = new Customer
+        var listNewCustomer = new List<Customer>
+        { new Customer
         {
             FirstName = "John",
             LastName = "Doe",
             Email = "John.Doe@gmail.com",
             Phone = "1234567890",
             CustomerType = CustomerType.Premium
-            };
+            },
+          new Customer
+            {
+                FirstName = "Jane",
+                LastName = "Doe",
+                Email = "Jane.Doe@gmail.com",
+                Phone = "1234567890",
+                CustomerType = CustomerType.Regular
+                }
+        };
+        foreach (var customer in listNewCustomer)
 
             CustomerAccountService.CreateCustomerAccount(customer);
     }
@@ -88,7 +98,7 @@ public class CustomerAccountService
 
 //TODO: Move to separate interface file
 
-public interface ICustomerAccountCreationStrategy<T,C>
+public interface ICustomerAccountCreationStrategy<T, C>
 {
     T CreateCustomerAccount(C customer, CustomerType customerType);
 }
@@ -99,20 +109,13 @@ public class RegularCustomerAccountCreationStrategy : ICustomerAccountCreationSt
     public RegularCustomerAccount CreateCustomerAccount(Customer customer, CustomerType customerType)
     {
 
-        if(customerType == CustomerType.Regular)
+        if (customerType == CustomerType.Regular)
         {
 
-        // Regular customer creation logic
-        var customerAccount = new RegularCustomerAccount
-        {
-            Customer = customer,
-            IsActive = true,
-            CreatedDate = DateTime.Now,
-            DiscountType = DiscountType.None,
-
-        };
-
-        return customerAccount;
+            // Regular customer creation logic
+            var customerAccount = new RegularCustomerAccount();
+            customerAccount = customerAccount.RegularCustomerAccountFactory(customer);
+            return customerAccount;
         }
         else
         {
@@ -128,7 +131,7 @@ public class PremiumCustomerAccountCreationStrategy : ICustomerAccountCreationSt
     public PremiumCustomerAccount CreateCustomerAccount(Customer customer, CustomerType customerType)
     {
 
-        if(customerType == CustomerType.Premium)
+        if (customerType == CustomerType.Premium)
         {
             // Premium customer creation logic
             //Focus Unit Testing here
@@ -136,7 +139,8 @@ public class PremiumCustomerAccountCreationStrategy : ICustomerAccountCreationSt
             customerAccount = customerAccount.PremiumCustomerAccountFactory(customer);
 
             return customerAccount;
-        }else
+        }
+        else
         {
             throw new InvalidOperationException("Invalid customer type");
         }
@@ -164,6 +168,29 @@ public class RegularCustomerAccount
     public DateTime? CreatedDate { get; set; }
     public DiscountType DiscountType { get; set; }
 
+    public RegularCustomerAccount RegularCustomerAccountFactory(Customer customer)
+    {
+        if (!IsCustomerValid(customer))
+        {
+            throw new InvalidOperationException("Invalid customer details");
+        }
+        // Regular customer creation logic
+        return new RegularCustomerAccount
+        {
+            Customer = customer,
+            IsActive = true,
+            CreatedDate = DateTime.Now,
+            DiscountType = DiscountType.None
+        };
+
+
+    }
+
+    public bool IsCustomerValid(Customer customer)
+    {
+        return !string.IsNullOrEmpty(customer.FirstName) && !string.IsNullOrEmpty(customer.LastName) && !string.IsNullOrEmpty(customer.Email) && !string.IsNullOrEmpty(customer.Phone);
+    }
+
 }
 
 //TODO: Move to separate class and implement the logic
@@ -181,20 +208,22 @@ public class PremiumCustomerAccount
     {
 
 
-        if(!IsCustomerValid(customer))
+        if (!IsCustomerValid(customer))
         {
             throw new InvalidOperationException("Invalid customer details");
         }
         // TODO: Implement the logic for creating premium customer account
         //       like does customer already exist, is customer valid, etc.
-        var rewards = new Rewards{
+        var rewards = new Rewards
+        {
             Points = 0,
             Description = "Premium Customer Rewards",
             ExpiryDate = DateTime.Now.AddYears(1),
             IsActive = true
         };
 
-        return new PremiumCustomerAccount{
+        return new PremiumCustomerAccount
+        {
 
             Customer = customer,
             IsActive = true,
