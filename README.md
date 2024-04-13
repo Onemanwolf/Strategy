@@ -4,7 +4,7 @@ Strategy Pattern implementation pracitce this example isn't perfect by no means 
 
 ## Two Strategies in the example:
 
-### Regular Customer Account Creation
+### Regular Customer Account Creation Strategy:
 - The `RegularCustomerAccountCreationStrategy` class is a concrete strategy in the Strategy Pattern. It implements the `ICustomerAccountCreationStrategy<RegularCustomerAccount, Customer>` interface, which defines a common method for creating a customer account.
 - The `CreateCustomerAccount` method takes a `Customer` object and a `CustomerType` enum as parameters. It checks if the `CustomerType` is `Regular`, and if so, it creates a `RegularCustomerAccount`.
 - The `RegularCustomerAccount` is created with the `Customer` object passed in, `IsActive` set to `true`, `CreatedDate` set to the current date and time, and `DiscountType` set to `None`.
@@ -25,7 +25,7 @@ public interface ICustomerAccountCreationStrategy<T, C>
 
 ```
 
-### Example code for Regualar Account Creationn:
+### Example code for Regualar Account Creationn Strategy:
 
 Here is where we implement the interface for a concrete type of RegularCustomerAccountCreationStrategy which implements the contracts `CreateCustomerAccount` Method.
 
