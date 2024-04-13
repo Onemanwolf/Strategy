@@ -1,0 +1,14 @@
+c:\Users\timot\source\repos\Strategy\StrategyPattern\bin\Debug\net8.0\StrategyPattern.exe
+c:\Users\timot\source\repos\Strategy\StrategyPattern\bin\Debug\net8.0\StrategyPattern.deps.json
+c:\Users\timot\source\repos\Strategy\StrategyPattern\bin\Debug\net8.0\StrategyPattern.runtimeconfig.json
+c:\Users\timot\source\repos\Strategy\StrategyPattern\bin\Debug\net8.0\StrategyPattern.dll
+c:\Users\timot\source\repos\Strategy\StrategyPattern\bin\Debug\net8.0\StrategyPattern.pdb
+c:\Users\timot\source\repos\Strategy\StrategyPattern\obj\Debug\net8.0\StrategyPattern.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\timot\source\repos\Strategy\StrategyPattern\obj\Debug\net8.0\StrategyPattern.AssemblyInfoInputs.cache
+c:\Users\timot\source\repos\Strategy\StrategyPattern\obj\Debug\net8.0\StrategyPattern.AssemblyInfo.cs
+c:\Users\timot\source\repos\Strategy\StrategyPattern\obj\Debug\net8.0\StrategyPattern.csproj.CoreCompileInputs.cache
+c:\Users\timot\source\repos\Strategy\StrategyPattern\obj\Debug\net8.0\StrategyPattern.dll
+c:\Users\timot\source\repos\Strategy\StrategyPattern\obj\Debug\net8.0\refint\StrategyPattern.dll
+c:\Users\timot\source\repos\Strategy\StrategyPattern\obj\Debug\net8.0\StrategyPattern.pdb
+c:\Users\timot\source\repos\Strategy\StrategyPattern\obj\Debug\net8.0\StrategyPattern.genruntimeconfig.cache
+c:\Users\timot\source\repos\Strategy\StrategyPattern\obj\Debug\net8.0\ref\StrategyPattern.dll
