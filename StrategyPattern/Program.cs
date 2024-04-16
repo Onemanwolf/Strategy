@@ -11,7 +11,7 @@ class Program
 
 
         var templateService = new TemplateService(new StandardTemplateCreationStrategy(), new CustomeTemplateCreationStrategy());
-        var listNewCustomer = new List<Template>
+        var listNewTemplates = new List<Template>
         { new Template
         {
             Name = "1099 Form",
@@ -30,7 +30,7 @@ class Program
             TemplateType = TemplateType.Custom
                 }
         };
-        foreach (var customer in listNewCustomer)
+        foreach (var customer in listNewTemplates)
 
             templateService.CreateTemplate(customer);
     }
