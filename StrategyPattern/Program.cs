@@ -10,7 +10,7 @@ class Program
 
 
 
-        var CustomerAccountService = new CustomerAccountService(new StandardTemplateCreationStrategy(), new CustomeTemplateCreationStrategy());
+        var templateService = new TemplateService(new StandardTemplateCreationStrategy(), new CustomeTemplateCreationStrategy());
         var listNewCustomer = new List<Template>
         { new Template
         {
@@ -32,18 +32,18 @@ class Program
         };
         foreach (var customer in listNewCustomer)
 
-            CustomerAccountService.CreateCustomerAccount(customer);
+            templateService.CreateTemplate(customer);
     }
 }
 
 //TODO: Move to separate class and implement the logic for customer account service
 // CustomerAccountService class is responsible for creating customer account based on the customer type
-public class CustomerAccountService
+public class TemplateService
 {
     private readonly ITemplateCreationStrategy<StandardTemplate, Template> _regularCustomerCreationStrategy;
     private readonly ITemplateCreationStrategy<CustomTemplate, Template> _premiumCustomerCreationStrategy;
 
-    public CustomerAccountService(ITemplateCreationStrategy<StandardTemplate, Template> regularCustomerCreationStrategy, ITemplateCreationStrategy<CustomTemplate, Template> premiumCustomerCreationStrategy)
+    public TemplateService(ITemplateCreationStrategy<StandardTemplate, Template> regularCustomerCreationStrategy, ITemplateCreationStrategy<CustomTemplate, Template> premiumCustomerCreationStrategy)
     {
         _regularCustomerCreationStrategy = regularCustomerCreationStrategy;
         _premiumCustomerCreationStrategy = premiumCustomerCreationStrategy;
@@ -57,7 +57,7 @@ public class CustomerAccountService
     //Given a customer object,
     //When this method creates a customer account based on the customer type
     //Then it should return true
-    public bool CreateCustomerAccount(Template template)
+    public bool CreateTemplate(Template template)
     {
 
         // here we are checking if the customer is valid or not

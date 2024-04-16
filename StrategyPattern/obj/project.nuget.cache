@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "dOReQQZMGNKu8A3+pQ1xIP7dMjiB4u2vTCEPLw43HZqL+VQyeb6xgJzlU75OV0ViQKGJc405QfWq5uCgJuCnSg==",
+  "dgSpecHash": "R7TgESKoUfFGV2B50Wfw5nH4dDMPU/yyafJYEkNytCUATGQgECyd9wjgx6IPU//q9jaNBY7xH9chfHXhyXv1ig==",
   "success": true,
-  "projectFilePath": "c:\\Users\\timot\\source\\repos\\Strategy\\StrategyPattern\\StrategyPattern.csproj",
+  "projectFilePath": "C:\\Users\\timot\\source\\repos\\Strategy\\StrategyPattern\\StrategyPattern.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

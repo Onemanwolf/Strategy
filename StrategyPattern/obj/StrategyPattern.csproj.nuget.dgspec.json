@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\timot\\source\\repos\\Strategy\\StrategyPattern\\StrategyPattern.csproj": {}
+    "C:\\Users\\timot\\source\\repos\\Strategy\\StrategyPattern\\StrategyPattern.csproj": {}
   },
   "projects": {
-    "c:\\Users\\timot\\source\\repos\\Strategy\\StrategyPattern\\StrategyPattern.csproj": {
+    "C:\\Users\\timot\\source\\repos\\Strategy\\StrategyPattern\\StrategyPattern.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\timot\\source\\repos\\Strategy\\StrategyPattern\\StrategyPattern.csproj",
+        "projectUniqueName": "C:\\Users\\timot\\source\\repos\\Strategy\\StrategyPattern\\StrategyPattern.csproj",
         "projectName": "StrategyPattern",
-        "projectPath": "c:\\Users\\timot\\source\\repos\\Strategy\\StrategyPattern\\StrategyPattern.csproj",
+        "projectPath": "C:\\Users\\timot\\source\\repos\\Strategy\\StrategyPattern\\StrategyPattern.csproj",
         "packagesPath": "C:\\Users\\timot\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\timot\\source\\repos\\Strategy\\StrategyPattern\\obj\\",
+        "outputPath": "C:\\Users\\timot\\source\\repos\\Strategy\\StrategyPattern\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
