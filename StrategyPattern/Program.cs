@@ -7,23 +7,27 @@ class Program
     static void Main(string[] args)
     {
         Console.WriteLine("Hello, Strategy Pattern!");
-        var CustomerAccountService = new CustomerAccountService(new RegularCustomerAccountCreationStrategy(), new PremiumCustomerAccountCreationStrategy());
-        var listNewCustomer = new List<Customer>
-        { new Customer
+
+
+
+        var CustomerAccountService = new CustomerAccountService(new StandardTemplateCreationStrategy(), new CustomeTemplateCreationStrategy());
+        var listNewCustomer = new List<Template>
+        { new Template
         {
-            FirstName = "John",
-            LastName = "Doe",
-            Email = "John.Doe@gmail.com",
-            Phone = "1234567890",
-            CustomerType = CustomerType.Premium
+            Name = "1099 Form",
+            Description = "1099 Form for the year 2023",
+            FilePath = "./file.pdf",
+            Data = "EntityId",
+            TemplateType = TemplateType.Standard
+
             },
-          new Customer
+          new Template
             {
-                FirstName = "Jane",
-                LastName = "Doe",
-                Email = "Jane.Doe@gmail.com",
-                Phone = "1234567890",
-                CustomerType = CustomerType.Regular
+                Name = "1099 Form",
+            Description = "1099 Form for the year 2023",
+            FilePath = "./file.pdf",
+            Data = "EntityId",
+            TemplateType = TemplateType.Custom
                 }
         };
         foreach (var customer in listNewCustomer)
@@ -36,28 +40,28 @@ class Program
 // CustomerAccountService class is responsible for creating customer account based on the customer type
 public class CustomerAccountService
 {
-    private readonly ICustomerAccountCreationStrategy<RegularCustomerAccount, Customer> _regularCustomerCreationStrategy;
-    private readonly ICustomerAccountCreationStrategy<PremiumCustomerAccount, Customer> _premiumCustomerCreationStrategy;
+    private readonly ITemplateCreationStrategy<StandardTemplate, Template> _regularCustomerCreationStrategy;
+    private readonly ITemplateCreationStrategy<CustomTemplate, Template> _premiumCustomerCreationStrategy;
 
-    public CustomerAccountService(ICustomerAccountCreationStrategy<RegularCustomerAccount, Customer> regularCustomerCreationStrategy, ICustomerAccountCreationStrategy<PremiumCustomerAccount, Customer> premiumCustomerCreationStrategy)
+    public CustomerAccountService(ITemplateCreationStrategy<StandardTemplate, Template> regularCustomerCreationStrategy, ITemplateCreationStrategy<CustomTemplate, Template> premiumCustomerCreationStrategy)
     {
         _regularCustomerCreationStrategy = regularCustomerCreationStrategy;
         _premiumCustomerCreationStrategy = premiumCustomerCreationStrategy;
     }
 
-    public bool IsCustomerValid(Customer customer)
+    public bool IsCustomerValid(Template template)
     {
-        return !string.IsNullOrEmpty(customer.FirstName) && !string.IsNullOrEmpty(customer.LastName) && !string.IsNullOrEmpty(customer.Email) && !string.IsNullOrEmpty(customer.Phone);
+        return !string.IsNullOrEmpty(template.Name) && !string.IsNullOrEmpty(template.Description) && !string.IsNullOrEmpty(template.FilePath) && !string.IsNullOrEmpty(template.Data);
     }
 
     //Given a customer object,
     //When this method creates a customer account based on the customer type
     //Then it should return true
-    public bool CreateCustomerAccount(Customer customer)
+    public bool CreateCustomerAccount(Template template)
     {
 
         // here we are checking if the customer is valid or not
-        if (!IsCustomerValid(customer))
+        if (!IsCustomerValid(template))
         {
             throw new InvalidOperationException("Invalid customer details");
         }
@@ -65,15 +69,15 @@ public class CustomerAccountService
         // here we are implementing the strategy pattern to create customer account
         // based on the customer type
 
-        if (customer.CustomerType == CustomerType.Regular)
+        if (template.TemplateType == TemplateType.Standard)
         {
-            CreateRegularCustomerAccount(customer);
-            Console.WriteLine("Regular customer account created successfully");
+            CreateRegularCustomerAccount(template);
+            Console.WriteLine("Standard Template created successfully");
         }
-        else if (customer.CustomerType == CustomerType.Premium)
+        else if (template.TemplateType == TemplateType.Custom)
         {
-            CreatePremiumCustomerAccount(customer);
-            Console.WriteLine("Premium customer account created successfully");
+            CreatePremiumCustomerAccount(template);
+            Console.WriteLine("Custom Template created successfully");
         }
         else
         {
@@ -85,60 +89,60 @@ public class CustomerAccountService
 
 
 
-    public RegularCustomerAccount CreateRegularCustomerAccount(Customer customer)
+    public StandardTemplate CreateRegularCustomerAccount(Template customer)
     {
-        return _regularCustomerCreationStrategy.CreateCustomerAccount(customer, CustomerType.Regular);
+        return _regularCustomerCreationStrategy.CreateFormTemplate(customer, TemplateType.Standard);
     }
 
-    public PremiumCustomerAccount CreatePremiumCustomerAccount(Customer customer)
+    public CustomTemplate CreatePremiumCustomerAccount(Template customer)
     {
-        return _premiumCustomerCreationStrategy.CreateCustomerAccount(customer, CustomerType.Premium);
+        return _premiumCustomerCreationStrategy.CreateFormTemplate(customer, TemplateType.Custom);
     }
 }
 
 //TODO: Move to separate interface file
 
-public interface ICustomerAccountCreationStrategy<T, C>
+public interface ITemplateCreationStrategy<T, C>
 {
-    T CreateCustomerAccount(C customer, CustomerType customerType);
+    T CreateFormTemplate(C customer, TemplateType customerType);
 }
 
 //TODO: Move to separate class and implement the logic for regular customer creation
-public class RegularCustomerAccountCreationStrategy : ICustomerAccountCreationStrategy<RegularCustomerAccount, Customer>
+public class CustomeTemplateCreationStrategy : ITemplateCreationStrategy<CustomTemplate, Template>
 {
-    public RegularCustomerAccount CreateCustomerAccount(Customer customer, CustomerType customerType)
+    public CustomTemplate CreateFormTemplate(Template template, TemplateType templateType)
     {
 
-        if (customerType == CustomerType.Regular)
+        if (templateType == TemplateType.Custom)
         {
 
             // Regular customer creation logic
-            var customerAccount = new RegularCustomerAccount();
-            customerAccount = customerAccount.RegularCustomerAccountFactory(customer);
-            return customerAccount;
+            var customTemplate = new CustomTemplate();
+            customTemplate = customTemplate.CustomTemplateFactory(template);
+            return customTemplate;
         }
         else
         {
-            throw new InvalidOperationException("Invalid customer type");
+            throw new InvalidOperationException("Invalid template type");
 
         }
     }
 }
 //TODO: Move to separate class and implement the logic for premium customer creation
 
-public class PremiumCustomerAccountCreationStrategy : ICustomerAccountCreationStrategy<PremiumCustomerAccount, Customer>
+public class StandardTemplateCreationStrategy : ITemplateCreationStrategy<StandardTemplate, Template>
 {
-    public PremiumCustomerAccount CreateCustomerAccount(Customer customer, CustomerType customerType)
+    public StandardTemplate CreateFormTemplate(Template template, TemplateType templateType)
     {
 
-        if (customerType == CustomerType.Premium)
+        if (templateType == TemplateType.Standard)
         {
             // Premium customer creation logic
             //Focus Unit Testing here
-            var customerAccount = new PremiumCustomerAccount();
-            customerAccount = customerAccount.PremiumCustomerAccountFactory(customer);
+            var standardTemplate = new StandardTemplate();
+            standardTemplate = standardTemplate.StandardTemplateFactory(template);
 
-            return customerAccount;
+            return standardTemplate;
         }
         else
         {
@@ -149,62 +153,60 @@ public class PremiumCustomerAccountCreationStrategy : ICustomerAccountCreationSt
 }
 //TODO: Move to separate class and implement the logic for validation
 
-public class Customer
+public class Template
 {
     public int Id { get; set; }
-    public string? FirstName { get; set; }
-    public string? LastName { get; set; }
-    public string? Email { get; set; }
-    public string? Phone { get; set; }
-    public CustomerType CustomerType { get; set; }
+    public string? Name { get; set; }
+    public string? Description { get; set; }
+    public string? FilePath { get; set; }
+    public string? Data { get; set; }
+    public TemplateType TemplateType { get; set; }
 
 }
 
 //TODO: Move to separate class and implement the logic
-public class RegularCustomerAccount
+public class StandardTemplate
 {
-    public Customer? Customer { get; set; }
+    public Template? Customer { get; set; }
     public bool IsActive { get; set; }
     public DateTime? CreatedDate { get; set; }
-    public DiscountType DiscountType { get; set; }
 
-    public RegularCustomerAccount RegularCustomerAccountFactory(Customer customer)
+
+    public StandardTemplate StandardTemplateFactory(Template customer)
     {
         if (!IsCustomerValid(customer))
         {
             throw new InvalidOperationException("Invalid customer details");
         }
         // Regular customer creation logic
-        return new RegularCustomerAccount
+        return new StandardTemplate
         {
             Customer = customer,
             IsActive = true,
             CreatedDate = DateTime.Now,
-            DiscountType = DiscountType.None
+
         };
 
 
     }
 
-    public bool IsCustomerValid(Customer customer)
+    public bool IsCustomerValid(Template template)
     {
-        return !string.IsNullOrEmpty(customer.FirstName) && !string.IsNullOrEmpty(customer.LastName) && !string.IsNullOrEmpty(customer.Email) && !string.IsNullOrEmpty(customer.Phone);
+        return !string.IsNullOrEmpty(template.Name) && !string.IsNullOrEmpty(template.Description) && !string.IsNullOrEmpty(template.FilePath) && !string.IsNullOrEmpty(template.Data);
     }
 
 }
 
 //TODO: Move to separate class and implement the logic
 
-public class PremiumCustomerAccount
+public class CustomTemplate
 {
-    public Customer? Customer { get; set; }
+    public Template? Customer { get; set; }
     public bool IsActive { get; set; }
     public DateTime? CreatedDate { get; set; }
-    public DiscountType DiscountType { get; set; }
 
-    public Rewards? Rewards { get; set; }
 
-    public PremiumCustomerAccount PremiumCustomerAccountFactory(Customer customer)
+    public CustomTemplate CustomTemplateFactory(Template customer)
     {
 
 
@@ -214,74 +216,34 @@ public class PremiumCustomerAccount
         }
         // TODO: Implement the logic for creating premium customer account
         //       like does customer already exist, is customer valid, etc.
-        var rewards = new Rewards
-        {
-            Points = 0,
-            Description = "Premium Customer Rewards",
-            ExpiryDate = DateTime.Now.AddYears(1),
-            IsActive = true
-        };
 
-        return new PremiumCustomerAccount
+
+        return new CustomTemplate
         {
 
             Customer = customer,
             IsActive = true,
             CreatedDate = DateTime.Now,
-            DiscountType = DiscountType.Percentage,
-            Rewards = rewards
+
 
         };
     }
 
-    public bool IsCustomerValid(Customer customer)
+    public bool IsCustomerValid(Template template)
     {
-        return !string.IsNullOrEmpty(customer.FirstName) && !string.IsNullOrEmpty(customer.LastName) && !string.IsNullOrEmpty(customer.Email) && !string.IsNullOrEmpty(customer.Phone);
+        return !string.IsNullOrEmpty(template.Name) && !string.IsNullOrEmpty(template.Description) && !string.IsNullOrEmpty(template.FilePath) && !string.IsNullOrEmpty(template.Data);
     }
 
 }
 
-//TODO: Move to separate class and implement the logic
 
-public class Rewards
-{
-    public int Points { get; set; }
-    public string? Description { get; set; }
-    public DateTime? ExpiryDate { get; set; }
-    public bool IsActive { get; set; }
-    public bool IsExpired { get; set; }
-    public bool IsRedeemed { get; set; }
-    public bool IsCancelled { get; set; }
-    public bool IsSuspended { get; set; }
-    public bool IsDeleted { get; set; }
-    public bool IsUpdated { get; set; }
-    public bool IsCreated { get; set; }
-    public bool IsSaved { get; set; }
-    public bool IsLoaded { get; set; }
-    public bool IsUnloaded { get; set; }
-    public bool IsDisposed { get; set; }
-    public bool IsInitialized { get; set; }
-    public bool IsFinalized { get; set; }
-    public bool IsStarted { get; set; }
-    public bool IsStopped { get; set; }
-    public bool IsPaused { get; set; }
-    public bool IsResumed { get; set; }
-    public bool IsCompleted { get; set; }
-    public bool IsFailed { get; set; }
-    public bool IsSucceeded { get; set; }
 
-}
+
 //TODO: Move to separate enum file
-public enum CustomerType
+public enum TemplateType
 {
-    Regular,
-    Premium
+    Custom,
+    Standard
 }
-//TODO: Move to separate enum file
 
-public enum DiscountType
-{
-    None,
-    Percentage,
-    FixedAmount
-}
+
